@@ -1,6 +1,6 @@
 module github.com/sigstore/sigstore
 
-go 1.22.8
+go 1.23.2
 
 require (
 	github.com/coreos/go-oidc/v3 v3.11.0
