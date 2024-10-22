@@ -22,7 +22,7 @@ import (
 	"log"
 
 	"github.com/coreos/go-oidc/v3/oidc"
-	"github.com/go-jose/go-jose/v3"
+	"github.com/go-jose/go-jose/v4"
 	soauth "github.com/sigstore/sigstore/pkg/oauth"
 	"golang.org/x/oauth2"
 )
@@ -172,9 +172,25 @@ type StaticTokenGetter struct {
 	RawToken string
 }
 
+var defaultSigningAlgorithms = []jose.SignatureAlgorithm{
+	jose.EdDSA,
+	jose.HS256,
+	jose.HS384,
+	jose.HS512,
+	jose.RS256,
+	jose.RS384,
+	jose.RS512,
+	jose.ES256,
+	jose.ES384,
+	jose.ES512,
+	jose.PS256,
+	jose.PS384,
+	jose.PS512,
+}
+
 // GetIDToken extracts an OIDCIDToken from the raw token *without verification*
 func (stg *StaticTokenGetter) GetIDToken(_ *oidc.Provider, _ oauth2.Config) (*OIDCIDToken, error) {
-	unsafeTok, err := jose.ParseSigned(stg.RawToken)
+	unsafeTok, err := jose.ParseSigned(stg.RawToken, defaultSigningAlgorithms)
 	if err != nil {
 		return nil, err
 	}
