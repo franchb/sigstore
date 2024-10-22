@@ -164,7 +164,7 @@ func (y *SignerVerifier) CryptoSigner(ctx context.Context, errFunc func(error)) 
 	return csw, defaultHf, nil
 }
 
-// SupportedAlgorithms returns the list of algorithms supported by YC AWS KMS service
+// SupportedAlgorithms returns the list of algorithms supported by Yandex Cloud KMS service
 func (*SignerVerifier) SupportedAlgorithms() (result []string) {
 	for k := range algorithmMap {
 		result = append(result, k)
