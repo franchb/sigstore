@@ -1,4 +1,4 @@
-module github.com/sigstore/sigstore
+module github.com/franchb/sigstore
 
 go 1.23.2
 

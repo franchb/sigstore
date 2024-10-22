@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/sigstore/sigstore/pkg/signature"
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/signature"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 var ycSupportedHashFuncs = []crypto.Hash{

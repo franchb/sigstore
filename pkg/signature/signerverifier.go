@@ -24,8 +24,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 // SignerVerifier creates and verifies digital signatures over a message using a specified key pair

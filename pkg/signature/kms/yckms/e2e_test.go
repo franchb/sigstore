@@ -26,7 +26,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/cryptoutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"

@@ -31,12 +31,12 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/franchb/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/signature"
+	sigkms "github.com/franchb/sigstore/pkg/signature/kms"
 	vault "github.com/hashicorp/vault/api"
 	"github.com/jellydator/ttlcache/v3"
 	"github.com/mitchellh/go-homedir"
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
-	"github.com/sigstore/sigstore/pkg/signature"
-	sigkms "github.com/sigstore/sigstore/pkg/signature/kms"
 )
 
 func init() {

@@ -22,7 +22,7 @@ import (
 
 	"github.com/google/go-containerregistry/pkg/name"
 
-	sigpayload "github.com/sigstore/sigstore/pkg/signature/payload"
+	sigpayload "github.com/franchb/sigstore/pkg/signature/payload"
 )
 
 // SignImage signs a container manifest using the specified signer object

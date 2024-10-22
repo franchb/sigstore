@@ -1,6 +1,6 @@
-module github.com/sigstore/sigstore/pkg/signature/kms/aws
+module github.com/franchb/sigstore/pkg/signature/kms/aws
 
-replace github.com/sigstore/sigstore => ../../../../
+replace github.com/franchb/sigstore => ../../../../
 
 go 1.23.2
 
@@ -9,8 +9,8 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.32.2
 	github.com/aws/aws-sdk-go-v2/config v1.27.43
 	github.com/aws/aws-sdk-go-v2/service/kms v1.37.2
+	github.com/franchb/sigstore v1.6.4
 	github.com/jellydator/ttlcache/v3 v3.3.0
-	github.com/sigstore/sigstore v1.6.4
 	github.com/stretchr/testify v1.9.0
 )
 

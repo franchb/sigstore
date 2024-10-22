@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 // checked on LoadSigner, LoadVerifier, and SignMessage

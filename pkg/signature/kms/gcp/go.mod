@@ -1,13 +1,13 @@
-module github.com/sigstore/sigstore/pkg/signature/kms/gcp
+module github.com/franchb/sigstore/pkg/signature/kms/gcp
 
-replace github.com/sigstore/sigstore => ../../../../
+replace github.com/franchb/sigstore => ../../../../
 
 go 1.23.2
 
 require (
 	cloud.google.com/go/kms v1.20.0
+	github.com/franchb/sigstore v1.6.4
 	github.com/jellydator/ttlcache/v3 v3.3.0
-	github.com/sigstore/sigstore v1.6.4
 	golang.org/x/oauth2 v0.23.0
 	google.golang.org/api v0.200.0
 	google.golang.org/protobuf v1.35.1

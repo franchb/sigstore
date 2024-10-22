@@ -20,9 +20,9 @@ import (
 	"crypto"
 	"io"
 
-	"github.com/sigstore/sigstore/pkg/signature"
-	sigkms "github.com/sigstore/sigstore/pkg/signature/kms"
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/signature"
+	sigkms "github.com/franchb/sigstore/pkg/signature/kms"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 // KmsCtxKey is used to look up the private key in the struct.

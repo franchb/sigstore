@@ -21,7 +21,7 @@ import (
 	"crypto/rsa"
 	"io"
 
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 // RPCOption specifies options to be used when performing RPC

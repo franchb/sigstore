@@ -1,14 +1,14 @@
-module github.com/sigstore/sigstore/pkg/signature/kms/hashivault
+module github.com/franchb/sigstore/pkg/signature/kms/hashivault
 
-replace github.com/sigstore/sigstore => ../../../../
+replace github.com/franchb/sigstore => ../../../../
 
 go 1.23.2
 
 require (
+	github.com/franchb/sigstore v1.6.4
 	github.com/hashicorp/vault/api v1.15.0
 	github.com/jellydator/ttlcache/v3 v3.3.0
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/sigstore/sigstore v1.6.4
 	github.com/stretchr/testify v1.9.0
 )
 

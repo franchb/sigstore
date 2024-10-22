@@ -23,7 +23,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sigstore/sigstore/test"
+	"github.com/franchb/sigstore/test"
 )
 
 func TestMarshalAndUnmarshalOtherNameSAN(t *testing.T) {

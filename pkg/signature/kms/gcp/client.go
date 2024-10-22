@@ -34,11 +34,11 @@ import (
 	"google.golang.org/api/option"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
+	"github.com/franchb/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/signature"
+	sigkms "github.com/franchb/sigstore/pkg/signature/kms"
+	"github.com/franchb/sigstore/pkg/signature/options"
 	"github.com/jellydator/ttlcache/v3"
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
-	"github.com/sigstore/sigstore/pkg/signature"
-	sigkms "github.com/sigstore/sigstore/pkg/signature/kms"
-	"github.com/sigstore/sigstore/pkg/signature/options"
 )
 
 func init() {

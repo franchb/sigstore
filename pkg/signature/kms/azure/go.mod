@@ -1,6 +1,6 @@
-module github.com/sigstore/sigstore/pkg/signature/kms/azure
+module github.com/franchb/sigstore/pkg/signature/kms/azure
 
-replace github.com/sigstore/sigstore => ../../../../
+replace github.com/franchb/sigstore => ../../../../
 
 go 1.23.2
 
@@ -8,10 +8,10 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.15.0
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.8.0
 	github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys v1.1.0
+	github.com/franchb/sigstore v1.6.4
 	github.com/go-jose/go-jose/v4 v4.0.4
 	github.com/google/go-cmp v0.6.0
 	github.com/jellydator/ttlcache/v3 v3.3.0
-	github.com/sigstore/sigstore v1.6.4
 	golang.org/x/crypto v0.28.0
 )
 

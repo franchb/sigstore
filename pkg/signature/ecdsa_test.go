@@ -28,7 +28,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/cryptoutils"
 )
 
 // Generated with:

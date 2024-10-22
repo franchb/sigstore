@@ -22,8 +22,8 @@ import (
 	"log"
 
 	"github.com/coreos/go-oidc/v3/oidc"
+	soauth "github.com/franchb/sigstore/pkg/oauth"
 	"github.com/go-jose/go-jose/v4"
-	soauth "github.com/sigstore/sigstore/pkg/oauth"
 	"golang.org/x/oauth2"
 )
 

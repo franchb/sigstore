@@ -29,10 +29,10 @@ import (
 	"regexp"
 	"time"
 
+	"github.com/franchb/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/signature"
+	sigkms "github.com/franchb/sigstore/pkg/signature/kms"
 	"github.com/jellydator/ttlcache/v3"
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
-	"github.com/sigstore/sigstore/pkg/signature"
-	sigkms "github.com/sigstore/sigstore/pkg/signature/kms"
 	"google.golang.org/grpc"
 
 	asymkms "github.com/yandex-cloud/go-genproto/yandex/cloud/kms/v1/asymmetricsignature"

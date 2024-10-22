@@ -35,9 +35,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/kms"
 	"github.com/aws/aws-sdk-go-v2/service/kms/types"
+	"github.com/franchb/sigstore/pkg/signature"
+	sigkms "github.com/franchb/sigstore/pkg/signature/kms"
 	"github.com/jellydator/ttlcache/v3"
-	"github.com/sigstore/sigstore/pkg/signature"
-	sigkms "github.com/sigstore/sigstore/pkg/signature/kms"
 )
 
 func init() {

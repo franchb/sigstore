@@ -24,8 +24,8 @@ import (
 	"crypto/sha256"
 	"testing"
 
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
-	"github.com/sigstore/sigstore/pkg/signature/kms"
+	"github.com/franchb/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/signature/kms"
 )
 
 func TestFakeSigner(t *testing.T) {

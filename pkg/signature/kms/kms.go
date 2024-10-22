@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sigstore/sigstore/pkg/signature"
+	"github.com/franchb/sigstore/pkg/signature"
 )
 
 // ProviderNotFoundError indicates that no matching KMS provider was found

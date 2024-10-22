@@ -1,4 +1,4 @@
-module github.com/sigstore/sigstore/hack/tools
+module github.com/franchb/sigstore/hack/tools
 
 go 1.23.2
 

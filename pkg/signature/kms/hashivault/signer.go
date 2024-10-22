@@ -23,8 +23,8 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/sigstore/sigstore/pkg/signature"
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/signature"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 // Taken from https://www.vaultproject.io/api/secret/transit
