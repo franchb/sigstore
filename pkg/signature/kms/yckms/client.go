@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package yckms implement the interface with Yandex Cloud kms service
+// Package yckms implements the interface with Yandex Cloud KMS service
 package yckms
 
 import (
