@@ -22,7 +22,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/cryptoutils"
 )
 
 // keys defined in rsapss_test.go

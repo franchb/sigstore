@@ -27,9 +27,9 @@ import (
 	"testing"
 	"unicode/utf8"
 
+	"github.com/franchb/sigstore/pkg/signature"
+	ds "github.com/franchb/sigstore/pkg/signature/dsse"
 	"github.com/secure-systems-lab/go-securesystemslib/dsse"
-	"github.com/sigstore/sigstore/pkg/signature"
-	ds "github.com/sigstore/sigstore/pkg/signature/dsse"
 )
 
 func FuzzDSSE(f *testing.F) {

@@ -26,9 +26,9 @@ import (
 	"time"
 
 	coreoidc "github.com/coreos/go-oidc/v3/oidc"
+	"github.com/franchb/sigstore/pkg/oauth"
 	"github.com/pkg/browser"
 	"github.com/segmentio/ksuid"
-	"github.com/sigstore/sigstore/pkg/oauth"
 	"golang.org/x/oauth2"
 )
 

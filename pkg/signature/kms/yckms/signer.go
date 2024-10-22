@@ -1,5 +1,5 @@
 //
-// Copyright 2021 The Sigstore Authors.
+// Copyright 2023 The Sigstore Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,69 +13,54 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gcp
+package yckms
 
 import (
 	"context"
 	"crypto"
 	"fmt"
-	"hash/crc32"
 	"io"
 
 	"github.com/franchb/sigstore/pkg/signature"
 	"github.com/franchb/sigstore/pkg/signature/options"
-	"google.golang.org/api/option"
 )
 
-var gcpSupportedHashFuncs = []crypto.Hash{
+var ycSupportedHashFuncs = []crypto.Hash{
 	crypto.SHA256,
 	crypto.SHA512,
 	crypto.SHA384,
 }
 
-// SignerVerifier creates and verifies digital signatures over a message using GCP KMS service
+// SignerVerifier is a signature.SignerVerifier that uses the AWS Key Management Service
 type SignerVerifier struct {
-	defaultCtx context.Context
-	client     *gcpClient
+	client *ycKmsClient
 }
 
-// LoadSignerVerifier generates signatures using the specified key object in GCP KMS and hash algorithm.
+// LoadSignerVerifier generates signatures using the specified key object in AWS KMS and hash algorithm.
 //
 // It also can verify signatures locally using the public key. hashFunc must not be crypto.Hash(0).
-func LoadSignerVerifier(defaultCtx context.Context, referenceStr string, opts ...option.ClientOption) (*SignerVerifier, error) {
-	g := &SignerVerifier{
-		defaultCtx: defaultCtx,
-	}
+func LoadSignerVerifier(ctx context.Context, referenceStr string) (*SignerVerifier, error) {
+	y := &SignerVerifier{}
 
 	var err error
-	g.client, err = newGCPClient(defaultCtx, referenceStr, opts...)
+	y.client, err = newYcKmsClient(ctx, referenceStr)
 	if err != nil {
 		return nil, err
 	}
 
-	return g, nil
+	return y, nil
 }
 
-// SignMessage signs the provided message using GCP KMS. If the message is provided,
+// SignMessage signs the provided message using YC KMS. If the message is provided,
 // this method will compute the digest according to the hash function specified
 // when the Signer was created.
-//
-// SignMessage recognizes the following Options listed in order of preference:
-//
-// - WithContext()
-//
-// - WithDigest()
-//
-// - WithCryptoSignerOpts()
-//
-// All other options are ignored if specified.
-func (g *SignerVerifier) SignMessage(message io.Reader, opts ...signature.SignOption) ([]byte, error) {
-	ctx := context.Background()
+func (y *SignerVerifier) SignMessage(message io.Reader, opts ...signature.SignOption) ([]byte, error) {
 	var digest []byte
-	var signerOpts crypto.SignerOpts
 	var err error
+	var signerOpts crypto.SignerOpts
+	ctx := context.Background()
+	signerOpts, err = y.client.getHashFunc(ctx)
 
-	signerOpts, err = g.client.getHashFunc()
 	if err != nil {
 		return nil, fmt.Errorf("getting fetching default hash function: %w", err)
 	}
@@ -86,18 +71,16 @@ func (g *SignerVerifier) SignMessage(message io.Reader, opts ...signature.SignOp
 		opt.ApplyCryptoSignerOpts(&signerOpts)
 	}
 
-	digest, hf, err := signature.ComputeDigestForSigning(message, signerOpts.HashFunc(), gcpSupportedHashFuncs, opts...)
-	if err != nil {
-		return nil, err
+	hf := signerOpts.HashFunc()
+
+	if len(digest) == 0 {
+		digest, hf, err = signature.ComputeDigestForSigning(message, hf, ycSupportedHashFuncs, opts...)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	crc32cHasher := crc32.New(crc32.MakeTable(crc32.Castagnoli))
-	_, err = crc32cHasher.Write(digest)
-	if err != nil {
-		return nil, err
-	}
-
-	return g.client.sign(ctx, digest, hf, crc32cHasher.Sum32())
+	return y.client.sign(ctx, digest, hf)
 }
 
 // PublicKey returns the public key that can be used to verify signatures created by
@@ -105,33 +88,33 @@ func (g *SignerVerifier) SignMessage(message io.Reader, opts ...signature.SignOp
 // the public key, pass option.WithContext(desiredCtx).
 //
 // All other options are ignored if specified.
-func (g *SignerVerifier) PublicKey(opts ...signature.PublicKeyOption) (crypto.PublicKey, error) {
+func (y *SignerVerifier) PublicKey(opts ...signature.PublicKeyOption) (crypto.PublicKey, error) {
 	ctx := context.Background()
 	for _, opt := range opts {
 		opt.ApplyContext(&ctx)
 	}
 
-	return g.client.public(ctx)
+	sk, err := y.client.getSK(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return sk.Verifier.PublicKey(opts...)
 }
 
 // VerifySignature verifies the signature for the given message. Unless provided
 // in an option, the digest of the message will be computed using the hash function specified
 // when the SignerVerifier was created.
-//
-// This function returns nil if the verification succeeded, and an error message otherwise.
-//
-// This function recognizes the following Options listed in order of preference:
-//
-// - WithDigest()
-//
-// All other options are ignored if specified.
-func (g *SignerVerifier) VerifySignature(signature, message io.Reader, opts ...signature.VerifyOption) error {
-	return g.client.verify(signature, message, opts...)
+func (y *SignerVerifier) VerifySignature(sig, message io.Reader, opts ...signature.VerifyOption) (err error) {
+	ctx := context.Background()
+	for _, opt := range opts {
+		opt.ApplyContext(&ctx)
+	}
+	return y.client.verify(ctx, sig, message, opts...)
 }
 
 // CreateKey attempts to create a new key in Vault with the specified algorithm.
-func (g *SignerVerifier) CreateKey(ctx context.Context, algorithm string) (crypto.PublicKey, error) {
-	return g.client.createKey(ctx, algorithm)
+func (y *SignerVerifier) CreateKey(ctx context.Context, algorithm string) (crypto.PublicKey, error) {
+	return y.client.createKey(ctx, algorithm)
 }
 
 type cryptoSignerWrapper struct {
@@ -154,26 +137,26 @@ func (c cryptoSignerWrapper) Sign(_ io.Reader, digest []byte, opts crypto.Signer
 	if opts != nil {
 		hashFunc = opts.HashFunc()
 	}
-	gcpOptions := []signature.SignOption{
+	awsOptions := []signature.SignOption{
 		options.WithContext(c.ctx),
 		options.WithDigest(digest),
 		options.WithCryptoSignerOpts(hashFunc),
 	}
 
-	return c.sv.SignMessage(nil, gcpOptions...)
+	return c.sv.SignMessage(nil, awsOptions...)
 }
 
 // CryptoSigner returns a crypto.Signer object that uses the underlying SignerVerifier, along with a crypto.SignerOpts object
 // that allows the KMS to be used in APIs that only accept the standard golang objects
-func (g *SignerVerifier) CryptoSigner(ctx context.Context, errFunc func(error)) (crypto.Signer, crypto.SignerOpts, error) {
-	defaultHf, err := g.client.getHashFunc()
+func (y *SignerVerifier) CryptoSigner(ctx context.Context, errFunc func(error)) (crypto.Signer, crypto.SignerOpts, error) {
+	defaultHf, err := y.client.getHashFunc(ctx)
 	if err != nil {
 		return nil, nil, fmt.Errorf("getting fetching default hash function: %w", err)
 	}
 
 	csw := &cryptoSignerWrapper{
 		ctx:      ctx,
-		sv:       g,
+		sv:       y,
 		hashFunc: defaultHf,
 		errFunc:  errFunc,
 	}
@@ -181,15 +164,15 @@ func (g *SignerVerifier) CryptoSigner(ctx context.Context, errFunc func(error)) 
 	return csw, defaultHf, nil
 }
 
-// SupportedAlgorithms returns the list of algorithms supported by the GCP KMS service
-func (g *SignerVerifier) SupportedAlgorithms() (result []string) {
+// SupportedAlgorithms returns the list of algorithms supported by Yandex Cloud KMS service
+func (*SignerVerifier) SupportedAlgorithms() (result []string) {
 	for k := range algorithmMap {
 		result = append(result, k)
 	}
 	return
 }
 
-// DefaultAlgorithm returns the default algorithm for the GCP KMS service
-func (g *SignerVerifier) DefaultAlgorithm() string {
-	return AlgorithmECDSAP256SHA256
+// DefaultAlgorithm returns the default algorithm for the YC KMS service
+func (*SignerVerifier) DefaultAlgorithm() string {
+	return Algorithm_ECDSA_NIST_P256_SHA_256
 }

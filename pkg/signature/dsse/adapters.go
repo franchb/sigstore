@@ -22,8 +22,8 @@ import (
 	"crypto"
 	"errors"
 
-	"github.com/sigstore/sigstore/pkg/signature"
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/signature"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 // SignerAdapter wraps a `sigstore/signature.Signer`, making it compatible with `go-securesystemslib/dsse.Signer`.

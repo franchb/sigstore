@@ -22,7 +22,7 @@ import (
 	"encoding/pem"
 	"testing"
 
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/cryptoutils"
 )
 
 func FuzzLoadCertificates(f *testing.F) {

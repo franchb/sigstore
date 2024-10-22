@@ -25,7 +25,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 func testingSigner(t *testing.T, s Signer, alg string, hashFunc crypto.Hash, message []byte) { // nolint: unparam

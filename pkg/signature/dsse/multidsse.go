@@ -22,8 +22,8 @@ import (
 	"errors"
 	"io"
 
+	"github.com/franchb/sigstore/pkg/signature"
 	"github.com/secure-systems-lab/go-securesystemslib/dsse"
-	"github.com/sigstore/sigstore/pkg/signature"
 )
 
 type wrappedMultiSigner struct {

@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 // RSAPKCS1v15Signer is a signature.Signer that uses the RSA PKCS1v15 algorithm

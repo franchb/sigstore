@@ -23,8 +23,8 @@ import (
 	"encoding/json"
 	"io"
 
+	"github.com/franchb/sigstore/pkg/signature"
 	"github.com/secure-systems-lab/go-securesystemslib/dsse"
-	"github.com/sigstore/sigstore/pkg/signature"
 )
 
 // WrapSigner returns a signature.Signer that uses the DSSE encoding format

@@ -21,8 +21,8 @@ import (
 	"encoding/base64"
 	"testing"
 
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
-	"github.com/sigstore/sigstore/pkg/signature/options"
+	"github.com/franchb/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/signature/options"
 )
 
 func TestLoadEd25519Signer(t *testing.T) {

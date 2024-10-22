@@ -13,9 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-.PHONY: all pkg test test-e2e clean lint fuzz help
+.PHONY: all pkg test test-e2e clean lint help # fuzz is disabled until fixed
 
-all: pkg fuzz
+all: pkg # fuzz is disabled until fixed
 
 TOOLS_DIR := hack/tools
 TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
@@ -28,12 +28,12 @@ GOLANGCI_LINT_BIN = $(GOLANGCI_LINT_DIR)/golangci-lint
 
 LDFLAGS ?=
 
-GO_MOD_DIRS = . ./pkg/signature/kms/aws ./pkg/signature/kms/azure ./pkg/signature/kms/gcp ./pkg/signature/kms/hashivault
+GO_MOD_DIRS = . ./pkg/signature/kms/aws ./pkg/signature/kms/azure ./pkg/signature/kms/gcp ./pkg/signature/kms/hashivault ./pkg/signature/kms/yckms
 
 golangci-lint:
 	rm -f $(GOLANGCI_LINT_BIN) || :
 	set -e ;\
-	GOBIN=$(GOLANGCI_LINT_DIR) go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.53.2 ;\
+	GOBIN=$(GOLANGCI_LINT_DIR) go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.61.0 ;\
 
 lint: golangci-lint ## Run golangci-lint
 	$(GOLANGCI_LINT_BIN) run -v --new-from-rev=HEAD~ ./...

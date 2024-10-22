@@ -25,10 +25,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/sigstore/sigstore/pkg/cryptoutils"
+	"github.com/franchb/sigstore/pkg/cryptoutils"
 
 	fuzz "github.com/AdaLogics/go-fuzz-headers"
-	"github.com/sigstore/sigstore/pkg/signature"
+	"github.com/franchb/sigstore/pkg/signature"
 )
 
 func FuzzECDSASigner(f *testing.F) {

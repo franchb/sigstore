@@ -71,7 +71,7 @@ var (
 // getRemoteRoot is a var for testing.
 var getRemoteRoot = func() string { return DefaultRemoteRoot }
 
-// Deprecated: Use https://pkg.go.dev/github.com/sigstore/sigstore-go/pkg/tuf
+// Deprecated: Use https://pkg.go.dev/github.com/franchb/sigstore-go/pkg/tuf
 type TUF struct {
 	sync.Mutex
 	client   *client.Client
