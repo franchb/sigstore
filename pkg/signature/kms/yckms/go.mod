@@ -7,7 +7,7 @@ go 1.23.2
 require (
 	github.com/franchb/sigstore v0.0.0-00010101000000-000000000000
 	github.com/jellydator/ttlcache/v3 v3.3.0
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	github.com/yandex-cloud/go-genproto v0.0.0-20241021132621-28bb61d00c2f
 	github.com/yandex-cloud/go-sdk v0.0.0-20241021153520-213d4c625eca
 	google.golang.org/grpc v1.67.1
