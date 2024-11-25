@@ -9,7 +9,7 @@ require (
 	github.com/hashicorp/vault/api v1.15.0
 	github.com/jellydator/ttlcache/v3 v3.3.0
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 )
 
 require (
