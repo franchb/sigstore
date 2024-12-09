@@ -10,7 +10,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/yandex-cloud/go-genproto v0.0.0-20241021132621-28bb61d00c2f
 	github.com/yandex-cloud/go-sdk v0.0.0-20241021153520-213d4c625eca
-	google.golang.org/grpc v1.67.1
+	google.golang.org/grpc v1.68.1
 )
 
 require (
